@@ -1,0 +1,301 @@
+
+
+#ifndef RNG90_H_
+#define RNG90_H_
+
+	#ifndef F_CPU
+		#define F_CPU 20000000UL
+	#endif
+
+	#ifndef RNG90_ADDRESS
+		#define RNG90_ADDRESS 0x40
+	#endif
+	
+	#ifndef RNG90_RESET_COMMAND
+		#define RNG90_RESET_COMMAND 0x00
+	#endif
+	
+	#ifndef RNG90_SLEEP_COMMAND1
+		#define RNG90_SLEEP_COMMAND1 0x01
+	#endif
+	
+	#ifndef RNG90_SLEEP_COMMAND2
+		#define RNG90_SLEEP_COMMAND2 0x02
+	#endif
+	
+	#ifndef RNG90_EXECUTE_COMMAND
+		#define RNG90_EXECUTE_COMMAND 0x03
+	#endif
+	
+	#ifndef RNG90_OPERATION_INFO
+		#define RNG90_OPERATION_INFO 0x30
+		
+		#ifndef RNG90_OPERATION_INFO_PARAM1
+			#define RNG90_OPERATION_INFO_PARAM1 0x00
+		#endif
+		
+		#ifndef RNG90_OPERATION_INFO_PARAM2
+			#define RNG90_OPERATION_INFO_PARAM2 0x0000
+		#endif
+	#endif
+	
+	#ifndef RNG90_OPERATION_RANDOM
+		#define RNG90_OPERATION_RANDOM 0x16
+		
+		#ifndef RNG90_OPERATION_RANDOM_PARAM1
+			#define RNG90_OPERATION_RANDOM_PARAM1 0x00
+		#endif
+		
+		#ifndef RNG90_OPERATION_RANDOM_PARAM2
+			#define RNG90_OPERATION_RANDOM_PARAM2 0x0000
+		#endif
+		
+		#ifndef RNG90_OPERATION_RANDOM_DATA_SIZE
+			#define RNG90_OPERATION_RANDOM_DATA_SIZE 20UL
+
+            #ifndef RNG90_OPERATION_RANDOM_DATA
+                #define RNG90_OPERATION_RANDOM_DATA 0x00
+            #endif
+		#endif
+		
+		#ifndef RNG90_OPERATION_RANDOM_RNG_SIZE
+			#define RNG90_OPERATION_RANDOM_RNG_SIZE 32UL
+		#endif
+	#endif
+	
+	#ifndef RNG90_OPERATION_READ
+		#define RNG90_OPERATION_READ 0x02
+		
+		#ifndef RNG90_OPERATION_READ_PARAM1
+			#define RNG90_OPERATION_READ_PARAM1 0x01
+		#endif
+		
+		#ifndef RNG90_OPERATION_READ_PARAM2
+			#define RNG90_OPERATION_READ_PARAM2 0x0000
+		#endif
+		
+		#ifndef RNG90_OPERATION_READ_DATA_SIZE
+			#define RNG90_OPERATION_READ_DATA_SIZE 16UL
+		#endif
+
+		#ifndef RNG90_OPERATION_READ_SERIAL_SIZE
+		    #define RNG90_OPERATION_READ_SERIAL_SIZE 8UL
+		#endif
+	#endif
+	
+	#ifndef RNG90_OPERATION_SELF_TEST
+		#define RNG90_OPERATION_SELF_TEST 0x77
+		
+		#ifndef RNG90_OPERATION_SELF_TEST_PARAM1_READ
+			#define RNG90_OPERATION_SELF_TEST_PARAM1_READ 0x00
+		#endif
+		
+		#ifndef RNG90_OPERATION_SELF_TEST_PARAM1_RUN_DRBG
+			#define RNG90_OPERATION_SELF_TEST_PARAM1_RUN_DRBG 0x01
+		#endif
+		
+		#ifndef RNG90_OPERATION_SELF_TEST_PARAM1_RUN_SHA256
+			#define RNG90_OPERATION_SELF_TEST_PARAM1_RUN_SHA256 0x20
+		#endif
+		
+		#ifndef RNG90_OPERATION_SELF_TEST_PARAM1_RUN_DRBG_AND_SHA256
+			#define RNG90_OPERATION_SELF_TEST_PARAM1_RUN_DRBG_AND_SHA256 0x21
+		#endif
+		
+		#ifndef RNG90_OPERATION_SELF_TEST_PARAM2
+			#define RNG90_OPERATION_SELF_TEST_PARAM2 0x0000
+		#endif
+	#endif
+	
+	#ifndef RNG90_NEW_BUS_TRANSMISSION_US
+		#define RNG90_NEW_BUS_TRANSMISSION_US 2UL
+	#endif
+	
+	#ifndef RNG90_STATUS_SUCCESSFUL_COMMAND_EXECUTION
+		#define RNG90_STATUS_SUCCESSFUL_COMMAND_EXECUTION 0x00
+	#endif
+	
+	#ifndef RNG90_STATUS_PARSE_ERROR
+		#define RNG90_STATUS_PARSE_ERROR 0x03
+	#endif
+	
+	#ifndef RNG90_STATUS_SELF_TEST_ERROR
+		#define RNG90_STATUS_SELF_TEST_ERROR 0x07
+	#endif
+	
+	#ifndef RNG90_STATUS_HEALTH_TEST_ERROR
+		#define RNG90_STATUS_HEALTH_TEST_ERROR 0x08
+	#endif
+	
+	#ifndef RNG90_STATUS_EXECUTION_ERROR
+		#define RNG90_STATUS_EXECUTION_ERROR 0x0F
+	#endif
+	
+	#ifndef RNG90_STATUS_AFTER_WAKE
+		#define RNG90_STATUS_AFTER_WAKE 0x11
+	#endif
+	
+	#ifndef RNG90_STATUS_TWI_ERROR
+		#define RNG90_STATUS_TWI_ERROR 0xF0
+	#endif
+	
+	#ifndef RNG90_STATUS_CRC_OR_COMMUNICATION_ERROR
+		#define RNG90_STATUS_CRC_OR_COMMUNICATION_ERROR 0xFF
+	#endif
+	
+	#ifndef RNG90_SELFTEST_STATUS_PASSED_SUCCESSFULLY
+		#define RNG90_SELFTEST_STATUS_PASSED_SUCCESSFULLY 0x00
+	#endif
+	
+	#ifndef RNG90_SELFTEST_STATUS_DRBG_SELFTEST_FAIL
+		#define RNG90_SELFTEST_STATUS_DRBG_SELFTEST_FAIL 0x01
+	#endif
+	
+	#ifndef RNG90_SELFTEST_STATUS_SHA256_SELFTEST_FAIL
+		#define RNG90_SELFTEST_STATUS_SHA256_SELFTEST_FAIL 0x20
+	#endif
+	
+	#ifndef RNG90_SELFTEST_STATUS_DRBG_SHA256_SELFTEST_FAIL
+		#define RNG90_SELFTEST_STATUS_DRBG_SHA256_SELFTEST_FAIL 0x21
+	#endif
+	
+	#ifndef RNG90_SELFTEST_STATUS_DRBG_SELFTEST_NOT_RUN
+		#define RNG90_SELFTEST_STATUS_DRBG_SELFTEST_NOT_RUN 0x02
+	#endif
+	
+	#ifndef RNG90_SELFTEST_STATUS_SHA256_SELFTEST_NOT_RUN
+		#define RNG90_SELFTEST_STATUS_SHA256_SELFTEST_NOT_RUN 0x10
+	#endif
+	
+	#ifndef RNG90_SELFTEST_STATUS_NEITHER_SELFTEST_NOT_RUN
+		#define RNG90_SELFTEST_STATUS_NEITHER_SELFTEST_NOT_RUN 0x12
+	#endif
+	
+	#ifndef RNG90_SELFTEST_STATUS_ERROR
+		#define RNG90_SELFTEST_STATUS_ERROR 0xFF
+	#endif
+	
+	#ifndef RNG90_INFO_EXECUTION_TIME_MS
+		#define RNG90_INFO_EXECUTION_TIME_MS 1UL
+	#endif
+	
+	#ifndef RNG90_RANDOM_EXECUTION_TIME_MS
+		#define RNG90_RANDOM_EXECUTION_TIME_MS 75UL
+	#endif
+	
+	#ifndef RNG90_READ_EXECUTION_TIME_MS
+		#define RNG90_READ_EXECUTION_TIME_MS 1UL
+	#endif
+	
+	#ifndef RNG90_SELFTEST_EXECUTION_TIME_MS
+		#define RNG90_SELFTEST_EXECUTION_TIME_MS 32UL
+	#endif
+	
+	#ifndef RNG90_WDT_RESET_TIME_MS
+		#define RNG90_WDT_RESET_TIME_MS 1300UL
+	#endif
+	
+    #ifndef RNG90_CRC_POLYNOMIAL
+        #define RNG90_CRC_POLYNOMIAL 0x8005
+    #endif
+
+    #ifndef RNG90_CRC_SIZE
+        #define RNG90_CRC_SIZE 2UL
+    #endif
+	
+    #ifndef RNG90_STANDARD_FRAME_SIZE
+		#define RNG90_STANDARD_FRAME_SIZE 4UL
+    #endif
+	
+    #ifndef RNG90_INFO_FRAME_SIZE
+		#define RNG90_INFO_FRAME_SIZE 7UL
+    #endif
+    
+    #ifndef RNG90_NUMBER_FRAME_SIZE
+		#define RNG90_NUMBER_FRAME_SIZE 35UL
+    #endif
+	
+    #ifndef RNG90_SERIAL_FRAME_SIZE
+		#define RNG90_SERIAL_FRAME_SIZE 19UL
+    #endif
+
+	#include <avr/io.h>
+	#include <util/delay.h>
+
+	#include "../../../utils/crc/crc16.h"
+	#include "../../../hal/avr0/twi/twi.h"
+
+	enum RNG90_Status_t
+	{
+		RNG90_Status_Success=RNG90_STATUS_SUCCESSFUL_COMMAND_EXECUTION,
+		RNG90_Status_Parse_Error=RNG90_STATUS_PARSE_ERROR,
+		RNG90_Status_SelfTest_Error=RNG90_STATUS_SELF_TEST_ERROR,
+		RNG90_Status_HealthTest_Error=RNG90_STATUS_HEALTH_TEST_ERROR,
+		RNG90_Status_Execution_Error=RNG90_STATUS_EXECUTION_ERROR,
+		RNG90_Status_AfterWake_Indication=RNG90_STATUS_AFTER_WAKE,
+		RNG90_Status_TWI_Error=RNG90_STATUS_TWI_ERROR,
+		RNG90_Status_Other_Error=RNG90_STATUS_CRC_OR_COMMUNICATION_ERROR
+	};
+    typedef enum RNG90_Status_t RNG90_Status;
+	
+	enum RNG90_Run_SelfTest_t
+	{
+		RNG90_Run_DRBG_SelfTest=RNG90_OPERATION_SELF_TEST_PARAM1_RUN_DRBG,
+		RNG90_Run_SHA256_SelfTest=RNG90_OPERATION_SELF_TEST_PARAM1_RUN_SHA256,
+		RNG90_Run_DBRG_SHA256_SelfTest=RNG90_OPERATION_SELF_TEST_PARAM1_RUN_DRBG_AND_SHA256
+	};
+	typedef enum RNG90_Run_SelfTest_t RNG90_Run_SelfTest;
+	
+	enum RNG90_SelfTest_Status_t
+    {
+        RNG90_SelfTest_Success=RNG90_SELFTEST_STATUS_PASSED_SUCCESSFULLY,
+        RNG90_SelfTest_Fail_DBRG=RNG90_SELFTEST_STATUS_DRBG_SELFTEST_FAIL,
+        RNG90_SelfTest_Not_Run_DBRG=RNG90_SELFTEST_STATUS_DRBG_SELFTEST_NOT_RUN,
+        RNG90_SelfTest_Not_Run_SHA256=RNG90_SELFTEST_STATUS_SHA256_SELFTEST_NOT_RUN,
+        RNG90_SelfTest_Not_Run_Neither=RNG90_SELFTEST_STATUS_NEITHER_SELFTEST_NOT_RUN,
+        RNG90_SelfTest_Fail_SHA256=RNG90_SELFTEST_STATUS_SHA256_SELFTEST_FAIL,
+        RNG90_SelfTest_Fail_DBRG_SHA256=RNG90_SELFTEST_STATUS_DRBG_SHA256_SELFTEST_FAIL,
+        RNG90_SelfTest_Error=RNG90_SELFTEST_STATUS_ERROR
+    };
+    typedef enum RNG90_SelfTest_Status_t RNG90_SelfTest_Status;
+	
+	struct RNG90_Info_t
+    {
+        unsigned char RFU;
+        unsigned char DeviceID;
+        unsigned char SiliconID;
+        unsigned char Revision;
+    };
+    typedef struct RNG90_Info_t RNG90_Info;
+
+    struct RNG90_Packet_t
+    {
+        unsigned char count;
+        unsigned char opcode;
+        unsigned char param1;
+        unsigned int  param2;
+        unsigned int  crc;
+    };
+    typedef struct RNG90_Packet_t RNG90_Packet;
+	
+	enum RNG90_Data_Status_t
+	{
+		RNG90_Data_Status_Valid=0,
+		RNG90_Data_Status_Invalid
+	};
+	typedef enum RNG90_Data_Status_t RNG90_Data_Status;
+	
+	struct RNG90_Frame_t
+	{
+		unsigned char length;
+		RNG90_Data_Status status;
+	};
+	typedef struct RNG90_Frame_t RNG90_Frame;
+	
+    RNG90_Status rng90_init(void);
+    RNG90_SelfTest_Status rng90_selftest(RNG90_Run_SelfTest test);
+    RNG90_Status rng90_info(RNG90_Info *info);
+    RNG90_Status rng90_random(unsigned char *numbers);
+    RNG90_Status rng90_serial(unsigned char *serial);
+
+#endif /* RNG90_H_ */
