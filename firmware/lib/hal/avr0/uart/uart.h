@@ -62,7 +62,7 @@
     #endif
 
     #ifndef UART_RXC_ECHO               // Setup that an echo occurs on data receiving
-        #define UART_RXC_ECHO           // (disabled if UART_TXCIE or UART_UDRIE is set)
+        //#define UART_RXC_ECHO         // (disabled if UART_TXCIE or UART_UDRIE is set)
     #endif
 
     #ifndef UART_HANDSHAKE              // Handshake between communication systems
