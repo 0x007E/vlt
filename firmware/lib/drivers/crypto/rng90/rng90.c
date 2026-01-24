@@ -95,7 +95,7 @@ RNG90_SelfTest_Status rng90_selftest(RNG90_Run_SelfTest test)
 	packet.crc = 0x0000;
 
     rng90_command(&packet);
-	_delay_ms(RNG90_SELFTEST_EXECUTION_TIME_MS);
+	systick_timer_wait_ms(RNG90_SELFTEST_EXECUTION_TIME_MS);
 	
 	RNG90_Frame frame = rng90_data(rng90_buffer);
 	
@@ -116,7 +116,7 @@ RNG90_Status rng90_info(RNG90_Info *info)
 	packet.crc = 0x0000;
 
 	rng90_command(&packet);
-    _delay_ms(RNG90_INFO_EXECUTION_TIME_MS);
+    systick_timer_wait_ms(RNG90_INFO_EXECUTION_TIME_MS);
 
 	RNG90_Frame frame = rng90_data(rng90_buffer);
 	
@@ -162,7 +162,7 @@ RNG90_Status rng90_random(unsigned char *numbers)
 	twi_set((unsigned char)(0x00FF & (packet.crc>>8)));
 	twi_stop();
 
-    _delay_ms(RNG90_RANDOM_EXECUTION_TIME_MS);
+    systick_timer_wait_ms(RNG90_RANDOM_EXECUTION_TIME_MS);
 	
 	RNG90_Frame frame = rng90_data(rng90_buffer);
 	
@@ -191,7 +191,7 @@ RNG90_Status rng90_serial(unsigned char *serial)
 	packet.crc = 0x0000;
 	
 	rng90_command(&packet);
-    _delay_ms(RNG90_READ_EXECUTION_TIME_MS);
+    systick_timer_wait_ms(RNG90_READ_EXECUTION_TIME_MS);
 
     RNG90_Frame frame = rng90_data(rng90_buffer);
     

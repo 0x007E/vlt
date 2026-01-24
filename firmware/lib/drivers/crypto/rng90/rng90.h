@@ -218,12 +218,11 @@
     #ifndef RNG90_SERIAL_FRAME_SIZE
 		#define RNG90_SERIAL_FRAME_SIZE 19UL
     #endif
-
-	#include <avr/io.h>
-	#include <util/delay.h>
-
-	#include "../../../utils/crc/crc16.h"
+	
 	#include "../../../hal/avr0/twi/twi.h"
+	
+	#include "../../../utils/crc/crc16.h"
+	#include "../../../utils/systick/systick.h"
 
 	enum RNG90_Status_t
 	{
