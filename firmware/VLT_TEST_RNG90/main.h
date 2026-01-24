@@ -12,7 +12,6 @@
 	#include <string.h>
 	#include <avr/io.h>
 	#include <avr/interrupt.h>
-	#include <util/delay.h>
 
 	#include "../lib/hal/avr0/system/system.h"
 	#include "../lib/hal/avr0/rtc/rtc.h"

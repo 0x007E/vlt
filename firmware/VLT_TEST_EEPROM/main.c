@@ -15,10 +15,13 @@ ISR(PORTA_PORT_vect)
 // Called every ~ millisecond!
 ISR(RTC_CNT_vect)
 {
-	cli();
-	//systick_tick();
-	sei();
+	systick_tick();
 	RTC.INTFLAGS = RTC_OVF_bm;
+}
+
+void systick_timer_wait_ms(unsigned int ms)
+{
+	systick_timer_wait(ms);
 }
 
 void at24cm0x_wp(AT24CM0X_WP_Mode mode)
@@ -45,17 +48,13 @@ int main(void)
 	
 	PORTA.DIRSET = PIN7_bm;
 	
-	PORTA.DIRCLR = PIN5_bm | PIN6_bm;
-
 	while(input_status(INPUT_SW1) == INPUT_Status_OFF)
 	{
 		PORTA.OUTTGL = PIN7_bm;
-		systick_timer_set(&systick_timer, 250UL);
-		systick_timer_wait(&systick_timer);
+		systick_timer_wait_ms(250UL);
 	}
-
-	systick_timer_set(&systick_timer, 500UL);
-	systick_timer_wait(&systick_timer);
+	
+	systick_timer_wait_ms(500UL);
 	PORTA.OUTCLR = PIN7_bm;
 
 	PORTA.PIN6CTRL = PORT_PULLUPEN_bm | PORT_ISC_FALLING_gc;
@@ -93,19 +92,19 @@ int main(void)
 	}
 	
 	#ifdef EEPROM_WRITE_EN
-	strcpy(buffer, "Das_ist_ein_wichtiger_Test");
+		strcpy(buffer, "Das_ist_ein_wichtiger_Test");
 	
-	//for (unsigned char i=0; i < sizeof(buffer)/sizeof(buffer[0]); i++)
-	//{
-	//at24cm0x_write_byte(i, buffer[i]);
-	//
-	//if(buffer == '\0')
-	//{
-	//break;
-	//}
-	//}
+		//for (unsigned char i=0; i < sizeof(buffer)/sizeof(buffer[0]); i++)
+		//{
+		//at24cm0x_write_byte(i, buffer[i]);
+		//
+		//if(buffer == '\0')
+		//{
+		//break;
+		//}
+		//}
 	
-	at24cm0x_write_page(0x00000000UL, (unsigned char *)buffer, sizeof(buffer));
+		at24cm0x_write_page(0x00000000UL, (unsigned char *)buffer, sizeof(buffer));
 	#endif
 	
 	printf("\n\rReset Buffer:\n\r");
@@ -170,8 +169,7 @@ int main(void)
 		at24cm0x_read_sequential(0ul, (unsigned char*)buffer, sizeof(buffer));
 		printf("%s\n\r", buffer);
 		
-		systick_timer_set(&systick_timer, 1000UL);
-		systick_timer_wait(&systick_timer);
+		systick_timer_wait_ms(1000UL);
 		
 		PORTA.OUTTGL = PIN7_bm;
 	}

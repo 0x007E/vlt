@@ -26,6 +26,11 @@ ISR(TCA0_OVF_vect)
 	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
 }
 
+void systick_timer_wait_ms(unsigned int ms)
+{
+	systick_timer_wait(ms);
+}
+
 int main(void)
 {
 	system_init();
@@ -41,12 +46,10 @@ int main(void)
 	while(input_status(INPUT_SW1) == INPUT_Status_OFF)
 	{
 		PORTA.OUTTGL = PIN7_bm;
-		systick_timer_set(&systick_timer, 250UL);
-		systick_timer_wait(&systick_timer);
+		systick_timer_wait_ms(250UL);
 	}
 
-	systick_timer_set(&systick_timer, 500UL);
-	systick_timer_wait(&systick_timer);
+	systick_timer_wait_ms(500UL);
 	
 	PORTA.OUTCLR = PIN7_bm;
 

@@ -1,36 +1,38 @@
 
+#include "main.h"
 
-#define F_CPU 20000000UL
-#define IO_PORT PORTA
-#define LED PIN7_bm
-#define SWITCH_S1 PIN5_bm
-#define SWITCH_S2 PIN6_bm
+unsigned char EEMEM ee_project[] = "\n\rVLT - Data Vault\n\r";
+unsigned char EEMEM ee_creator[] = "Author: Ing. Raffael GAECHTER";
+unsigned char EEMEM ee_copyright[] = "(c) 2026, All rights reserved!";
+unsigned char EEMEM ee_version = 0x10;
 
-#define TRNG_PORT PORTB
-#define TRNG_PIN PIN3_bm
+unsigned char EEMEM ee_masterkey[] = "Master Key: ";
 
-#define AT24CM0X_PORT_WP PORTB
-#define AT24CM0X_PIN_WP PIN2_bm
+SYSTICK_Timer systick_timer;
+char buffer[100];
 
-#include <string.h>
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
-
-#include "../lib//hal/avr0/system/system.h"
-#include "../lib/hal/avr0/uart/uart.h"
-#include "../lib/hal/avr0/twi/twi.h"
-
-#include "../lib/drivers/crypto/rng90/rng90.h"
-#include "../lib/drivers/prom/at24cm0x/at24cm0x.h"
-
-ISR(PORTA_PORT_vect)
+enum BYTE_Nibble_t
 {
-	// Restart System
-	CCP = CCP_IOREG_gc;
-	RSTCTRL.SWRR = RSTCTRL_SWRE_bm;
+	BYTE_Nibble_Low=0,
+	BYTE_Nibble_High
+};
+typedef enum BYTE_Nibble_t BYTE_Nibble;
 
-	PORTA.INTFLAGS = PORT_INT_6_bm;
+ISR(RTC_CNT_vect)
+{
+	systick_tick();
+	RTC.INTFLAGS = RTC_OVF_bm;
+}
+
+ISR(TCA0_OVF_vect)
+{
+	trng_next_bit(TRNG_PORT.IN & TRNG_PIN);
+	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
+}
+
+void systick_timer_wait_ms(unsigned int ms)
+{
+	systick_timer_wait(ms);
 }
 
 void at24cm0x_wp(AT24CM0X_WP_Mode mode)
@@ -44,173 +46,166 @@ void at24cm0x_wp(AT24CM0X_WP_Mode mode)
 	AT24CM0X_PORT_WP.DIRCLR = AT24CM0X_PIN_WP;
 }
 
+static void trng_start(void)
+{
+	TRNG_PORT.DIRCLR = TRNG_PIN;
+	TRNG_PORT.TRNG_PIN_PINCTRL = TRNG_PIN_SETUP;
+	
+	TCA0.SINGLE.PER = 0x0085;
+	TCA0.SINGLE.INTCTRL = TCA_SINGLE_OVF_bm;
+	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1_gc | TCA_SINGLE_ENABLE_bm;
+}
+
+static void trng_stop(void)
+{
+	TCA0.SINGLE.INTCTRL = TCA_SINGLE_OVF_bm;
+	TCA0.SINGLE.CTRLA &=  ~TCA_SINGLE_ENABLE_bm;
+}
+
 int main(void)
 {
 	system_init();
-	uart_init();
-	twi_init();
-	
-	PORTA.DIRSET = PIN7_bm;
-	
-	PORTA.DIRCLR = PIN5_bm | PIN6_bm;
-	PORTA.PIN5CTRL = PORT_PULLUPEN_bm;
-	PORTA.PIN6CTRL = PORT_PULLUPEN_bm;
-
-	while(PORTA.IN & PIN5_bm)
-	{
-		PORTA.OUTTGL = PIN7_bm;
-		_delay_ms(250);
-	}
-
-	_delay_ms(500);
-	PORTA.OUTCLR = PIN7_bm;
-
-	PORTA.PIN6CTRL = PORT_PULLUPEN_bm | PORT_ISC_FALLING_gc;
+	rtc_init();
 	sei();
 	
-	printf("\n\rSystem startup:\n\r");
+	systick_init();
+	uart_init();
+	twi_init();
+	input_init();
+	
+	trng_init();
+	trng_start();
+	trng_stop();
+	
+	rng90_init();
+	
+	at24cm0x_init();
+	
+	PORTA.DIRSET = PIN7_bm;
+
+	while(!input_status(INPUT_SW1))
+	{
+		PORTA.OUTTGL = PIN7_bm;
+		systick_timer_wait_ms(250UL);
+	}
+
+	systick_timer_wait_ms(500UL);
+	PORTA.OUTCLR = PIN7_bm;
+	
+	console_clear();
+	
+	eeprom_read_block(buffer, ee_project, sizeof(ee_project));
+	printf("%sVersion: %1u.%1u", buffer, (eeprom_read_byte(&ee_version)>>4), (0x0F & eeprom_read_byte(&ee_version)));
+	console_line(40);
+	eeprom_read_block(buffer, ee_creator, sizeof(ee_creator));
+	printf("%s", buffer);
+	console_newline();
+	eeprom_read_block(buffer, ee_copyright, sizeof(ee_copyright));
+	printf("%s", buffer);
+	console_line(40);
+	eeprom_read_block(buffer, ee_masterkey, sizeof(ee_masterkey));
+	printf("%s", buffer);
 	
 	unsigned char i = 0;
+	unsigned char run = 1;
+	
+	BYTE_Nibble nibble = BYTE_Nibble_High;
+	
+	buffer[i] = '\0';
+	
+	do 
+	{
+		if(uart_scanchar(&buffer[i]) == UART_Received)
+		{
+			if(buffer[i] == '\n' || buffer[i] == '\r')
+			{
+				break;
+			}
+			uart_putchar('*');
+			i++;
+		}
+		else if(input_status(INPUT_SW1))
+		{
+			systick_timer_wait_ms(250UL);
+			
+			if(nibble == BYTE_Nibble_High)
+			{
+				buffer[i] = buffer[i] + 0x10;
+			}
+			else if(nibble == BYTE_Nibble_Low)
+			{
+				buffer[i] = buffer[i] + 0x01;
+			}
+			
+			if(	(nibble == BYTE_Nibble_Low) && 
+				((buffer[i] < ' ') || 
+				(buffer[i] > '~')))
+			{
+				printf("Error -> Restarting\n\r");
+				
+				// Restart System
+				CCP = CCP_IOREG_gc;
+				RSTCTRL.SWRR = RSTCTRL_SWRE_bm;
+
+				PORTA.INTFLAGS = PORT_INT_6_bm;
+			}
+			
+			while(input_status(INPUT_SW1))
+			{
+				PORTA.OUTSET = PIN7_bm;
+			}
+			
+		}
+		else if(input_status(INPUT_SW2))
+		{
+			systick_timer_wait_ms(10UL);
+			
+			if(nibble == BYTE_Nibble_High)
+			{
+				nibble = BYTE_Nibble_Low;
+			}
+			else
+			{
+				uart_putchar('*');
+				buffer[(++i)] = '\0';
+				nibble = BYTE_Nibble_High;
+			}
+			
+			systick_timer_set(&systick_timer, 2000UL);
+			
+			while(input_status(INPUT_SW2))
+			{
+				PORTA.OUTSET = PIN7_bm;
+				
+				if(systick_timer_elapsed(&systick_timer) && nibble == BYTE_Nibble_High)
+				{
+					run = 0;
+					break;
+				}
+			}
+		}
+		PORTA.OUTCLR = PIN7_bm;
+		
+		systick_timer_wait_ms(10UL);
+		
+	} while (run);
+	
+	PORTA.OUTCLR = PIN7_bm;
+	buffer[i] = '\0';
+	
+	console_newline();
+	
+	printf("\n\rPhrase: %s\n\r", buffer);
 	
 	while(1)
 	{
-		unsigned char temp = 10;
+		systick_timer_wait_ms(1000UL);
 		
-		printf("\n\rRead Data (%3u): ", i);
-		twi_start();
-		twi_address(0b01010100, TWI_Write);
-		twi_set(0x00);
-		twi_set((i++));
-		twi_start();
-		twi_address(0b01010100, TWI_Write);
-		twi_get(&temp, TWI_NACK);
-		twi_stop();
-		_delay_ms(500);
-		printf("%3u", temp);
+		// Restart System
+		CCP = CCP_IOREG_gc;
+		RSTCTRL.SWRR = RSTCTRL_SWRE_bm;
+
+		PORTA.INTFLAGS = PORT_INT_6_bm;
 	}
-	
-	
-	
-	
-	
-	//RNG90_Status status;
-	//
-	//status = rng90_init();
-	//at24cm0x_init();
-	//
-	//
-	////char buffer[] = "Das_ist_ein_Test";
-	//char buffer[100];
-	//
-	////for (unsigned char i=0; i < 16; i++)
-	////{
-	////at24cm0x_write_byte((0UL + i), 0xFF);
-	////}
-	//
-	////at24cm0x_write_page(0UL, (unsigned char *)buffer, sizeof(buffer));
-	//
-	//printf("\n\rReset Buffer:\n\r");
-	//
-	//for (unsigned char i=0; i < sizeof(buffer); i++)
-	//{
-	//buffer[i] = 0x00;
-	//}
-	//
-	//printf("\n\rread data from buffer (sequential):\n\r");
-	//
-	//at24cm0x_read_sequential(0ul, (unsigned char*)buffer, sizeof(buffer));
-	//
-	//printf("\n\r");
-	//
-	//printf("\n\rRead Data from Buffer (bytewise):\n\r");
-	//
-	//for (unsigned char i=0; i < sizeof(buffer); i++)
-	//{
-	//unsigned char temp = 0x00;
-	//
-	//if(i == 0)
-	//{
-	//at24cm0x_read_byte((0UL + i), &temp);
-	//}
-	//else
-	//{
-	//at24cm0x_read_current_byte(&temp);
-	//}
-	//
-	//buffer[i] = temp;
-	//printf("0x%02hhx, ", temp);
-	//}
-	//
-	//printf("Read current bytes:\n\r");
-	//
-	//for (unsigned char i=0; i < sizeof(buffer); i++)
-	//{
-	//unsigned char temp = 0x00;
-	//at24cm0x_read_current_byte(&temp);
-	//printf("0x%02hhx, ", temp);
-	//}
-	//
-	//printf("\n\rAT24CS0X Serial: \n\r");
-	//printf(" -> %16s", buffer);
-	//printf("\n\r");
-	//
-	//printf(" -> RNG90 Initialization: %02hhx\n\r", status);
-	//unsigned char serial[RNG90_OPERATION_READ_SERIAL_SIZE];
-	//
-	//status = rng90_serial(serial);
-	//printf(" -> RNG90 Serial: %02hhx\n\r", status);
-	//
-	//if(status == RNG90_Status_Success)
-	//{
-	//printf(" -> RNG90 Serial: 0x");
-	//for (unsigned char i=0; i < RNG90_OPERATION_READ_SERIAL_SIZE; i++)
-	//{
-	//printf("%02hhx", serial[i]);
-	//}
-	//printf("\n\r");
-	//}
-	//
-	//RNG90_Info info;
-	//info.DeviceID = 0x00;
-	//info.Revision = 0x00;
-	//info.RFU = 0x00;
-	//info.SiliconID = 0x00;
-	//
-	//status = rng90_info(&info);
-	//printf(" -> RNG90 Info: %02hhx\n\r", status);
-	//
-	//if(status == RNG90_Status_Success)
-	//{
-	//printf(" -> RNG90 Data:\n\r");
-	//printf("    +-----------------+\n\r");
-	//printf("    |  DeviceId: 0x%02hhx |\n\r", info.DeviceID);
-	//printf("    |  Revision: 0x%02hhx |\n\r", info.Revision);
-	//printf("    |       RFU: 0x%02hhx |\n\r", info.RFU);
-	//printf("    | SiliconId: 0x%02hhx |\n\r", info.SiliconID);
-	//printf("    +-----------------+\n\n\r");
-	//}
-	//
-	//while (1)
-	//{
-	//status = rng90_random(rng_numbers);
-	//printf(" -> RNG90 Random: %02hhx\n\r", status);
-	//printf(" -> RNG90 Numberset:\n\r");
-	//printf("    { ");
-	//for (unsigned char i=0; i < RNG90_OPERATION_RANDOM_RNG_SIZE; i++)
-	//{
-	//if(i == (RNG90_OPERATION_RANDOM_RNG_SIZE - 1))
-	//{
-	//printf("%02hhx", rng_numbers[i]);
-	//break;
-	//}
-	//printf("%02hhx, ", rng_numbers[i]);
-	//}
-	//printf(" }\n\r");
-	//_delay_ms(1000);
-	//
-	//at24cm0x_read_sequential(0ul, (unsigned char*)buffer, sizeof(buffer));
-	//
-	//PORTA.OUTTGL = PIN7_bm;
-	//}
 }
 
