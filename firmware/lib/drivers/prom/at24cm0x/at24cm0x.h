@@ -65,9 +65,8 @@
 		#define AT24CM0X_WRITE_CYCLE_MS 10UL
 	#endif
 	
-	#include <util/delay.h>
-	
 	#include "../../../hal/avr0/twi/twi.h"
+	#include "../../../utils/systick/systick.h"
 
 	enum AT24CM0X_WP_Mode_t
 	{

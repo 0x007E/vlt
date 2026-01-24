@@ -74,7 +74,7 @@ AT24CM0X_Status at24cm0x_write_byte(unsigned long address, unsigned char data)
 	#ifdef AT24CM0X_WRITE_ACKNOWLEDGE_POLLING
 		at24cm0x_write_acknowledge_polling();
 	#else
-		_delay_ms(AT24CM0X_WRITE_CYCLE_MS);
+		systick_timer_wait_ms(AT24CM0X_WRITE_CYCLE_MS);
 	#endif
 	
 	#ifdef AT24CM0X_WP_CONTROL_EN
@@ -135,7 +135,7 @@ AT24CM0X_Status at24cm0x_write_page(unsigned int page, unsigned char *data, unsi
 	#ifdef AT24CM0X_WRITE_ACKNOWLEDGE_POLLING
 		at24cm0x_write_acknowledge_polling();
 	#else
-		_delay_ms(AT24CM0X_WRITE_CYCLE_MS);
+		systick_timer_wait_ms(AT24CM0X_WRITE_CYCLE_MS);
 	#endif
 	
 	#ifdef AT24CM0X_WP_CONTROL_EN
@@ -175,8 +175,6 @@ AT24CM0X_Status at24cm0x_read_current_byte(unsigned char *data)
 	error |= twi_get(data, TWI_NACK);
 	twi_stop();
 	
-	_delay_us(10);
-	
 	if(error != TWI_None)
 	{
 		return AT24CM0X_Status_TWI_Error;
@@ -197,13 +195,11 @@ AT24CM0X_Status at24cm0x_read_byte(unsigned long address, unsigned char *data)
 	twi_start();
 	error |= at24cm0x_send_address(address);
 	twi_stop();
-	_delay_us(50);
 	
 	twi_start();
 	error |= twi_address(at24cm0x_device_identifier, TWI_Read);
 	error |= twi_get(data, TWI_NACK);
 	twi_stop();
-	_delay_us(50);
 	
 	if(error != TWI_None || status != AT24CM0X_Status_Done)
 	{
@@ -245,7 +241,6 @@ AT24CM0X_Status at24cm0x_read_sequential(unsigned long address, unsigned char *d
 		error |= twi_get((data + i), ack);
 	}
 	twi_stop();
-	_delay_us(50);
 	
 	if(error != TWI_None || status != AT24CM0X_Status_Done)
 	{
