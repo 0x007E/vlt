@@ -62,9 +62,12 @@ unsigned int systick_timer_remaining(SYSTICK_Timer *timer)
 	return 0UL;
 }
 
-void systick_timer_wait(SYSTICK_Timer *timer)
+void systick_timer_wait(unsigned int ticks)
 {
-	while (systick_timer_elapsed(timer) == SYSTICK_Timer_Running)
+	SYSTICK_Timer timer;
+	systick_timer_set(&timer, ticks);
+	
+	while (systick_timer_elapsed(&timer) == SYSTICK_Timer_Running)
 	{
 		asm volatile("NOP");
 	}

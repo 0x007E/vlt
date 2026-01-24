@@ -28,7 +28,9 @@
 	void systick_timer_set(SYSTICK_Timer *timer, unsigned int delay_ticks);
 	SYSTICK_Timer_Status systick_timer_elapsed(SYSTICK_Timer *timer);
 	unsigned int systick_timer_remaining(SYSTICK_Timer *timer);
-	void systick_timer_wait(SYSTICK_Timer *timer);
+	void systick_timer_wait(unsigned int ticks);
+	void systick_timer_wait_ms(unsigned int ms);
+	void systick_timer_wait_us(unsigned int us);
 	void systick_timer_cancel(SYSTICK_Timer *timer);
 
 #endif /* SYSTICK_H_ */
