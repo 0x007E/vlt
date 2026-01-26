@@ -7,6 +7,10 @@
 		#define F_CPU 20000000UL
 	#endif
 
+	#ifndef RNG90_HAL_PLATFORM
+        #define RNG90_HAL_PLATFORM avr0
+    #endif
+
 	#ifndef RNG90_ADDRESS
 		#define RNG90_ADDRESS 0x40
 	#endif
@@ -219,7 +223,9 @@
 		#define RNG90_SERIAL_FRAME_SIZE 19UL
     #endif
 	
-	#include "../../../hal/avr0/twi/twi.h"
+	#include "../../../utils/macros/stringify.h"
+
+	#include _STR(../../../hal/RNG90_HAL_PLATFORM/twi/twi.h)
 	
 	#include "../../../utils/crc/crc16.h"
 	#include "../../../utils/systick/systick.h"

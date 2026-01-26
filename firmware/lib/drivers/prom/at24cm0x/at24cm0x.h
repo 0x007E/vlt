@@ -7,6 +7,10 @@
 		#define F_CPU 20000000UL
 	#endif
 
+	#ifndef AT24CM0X_HAL_PLATFORM
+		#define AT24CM0X_HAL_PLATFORM avr0
+	#endif
+
 	#ifndef AT24CM0X_MEMORY_SIZE
 		#define AT24CM0X_MEMORY_SIZE 262144UL
 	#endif
@@ -65,7 +69,10 @@
 		#define AT24CM0X_WRITE_CYCLE_MS 10UL
 	#endif
 	
-	#include "../../../hal/avr0/twi/twi.h"
+	#include "../../../utils/macros/stringify.h"
+
+	#include _STR(../../../hal/AT24CM0X_HAL_PLATFORM/twi/twi.h)
+	
 	#include "../../../utils/systick/systick.h"
 
 	enum AT24CM0X_WP_Mode_t
