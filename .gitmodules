@@ -1,0 +1,33 @@
+[submodule "firmware/lib/hal/avr0/uart"]
+	path = firmware/lib/hal/avr0/uart
+	url = https://github.com/0x007e/hal-avr0-uart
+[submodule "firmware/lib/hal/avr0/twi"]
+	path = firmware/lib/hal/avr0/twi
+	url = https://github.com/0x007e/hal-avr0-twi
+[submodule "firmware/lib/hal/avr0/system"]
+	path = firmware/lib/hal/avr0/system
+	url = https://github.com/0x007e/hal-avr0-system
+[submodule "firmware/lib/hal/avr0/rtc"]
+	path = firmware/lib/hal/avr0/rtc
+	url = https://github.com/0x007e/hal-avr0-rtc
+[submodule "firmware/lib/hal/common"]
+	path = firmware/lib/hal/common
+	url = https://github.com/0x007e/hal-common
+[submodule "firmware/lib/drivers/crypto/rng90"]
+	path = firmware/lib/drivers/crypto/rng90
+	url = https://github.com/0x007e/drivers-crypto-rng90
+[submodule "firmware/lib/drivers/crypto/trng"]
+	path = firmware/lib/drivers/crypto/trng
+	url = https://github.com/0x007e/drivers-crypto-trng
+[submodule "firmware/lib/drivers/prom/at24cm0x"]
+	path = firmware/lib/drivers/prom/at24cm0x
+	url = https://github.com/0x007e/drivers-prom-at24cm0x
+[submodule "firmware/lib/utils/crc"]
+	path = firmware/lib/utils/crc
+	url = https://github.com/0x007e/utils-crc
+[submodule "firmware/lib/utils/macros"]
+	path = firmware/lib/utils/macros
+	url = https://github.com/0x007e/utils-macros
+[submodule "firmware/lib/utils/systick"]
+	path = firmware/lib/utils/systick
+	url = https://github.com/0x007e/utils-systick
