@@ -2,6 +2,13 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// !! SETUP GLOBAL DEFINES      !!
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// !! UART_RXC_ECHO             !!
+	// !! AT24CM0X_WP_CONTROL_EN    !!
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 	#ifndef F_CPU
 		#define F_CPU 20000000UL
 	#endif

@@ -105,10 +105,7 @@ int main(void)
 			
 			for (unsigned char i=0; i < TRNG_BUFFER_SIZE; i++)
 			{
-				if(i < (TRNG_BUFFER_SIZE - 1))
-				{
-					printf("%u, ", *(trng_numbers)++);
-				}
+				printf("%u, ", *(trng_numbers++));
 			}
 			trng_reset();
 		}
