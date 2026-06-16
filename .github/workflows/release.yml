@@ -1,0 +1,235 @@
+name: VLT Release Pipeline
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  export-kicad:
+    env:
+      BaseFileName: "VLT"
+      Folder: "./pcb"
+      SchematicFileExtension: "kicad_sch"
+      PCBFileExtension: "kicad_pcb"
+      OutputFolder: "./output"
+      ConfigFilePath: ".kibot/release.kibot.yaml"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fetch repository
+      uses: actions/checkout@v4
+    
+    - name: Prepare output directory
+      run: |
+        mkdir -p ${{ env.OutputFolder }}
+        cp -r ${{ env.Folder }} ${{ env.OutputFolder }}/kicad
+        cp ./LICENSE ${{ env.OutputFolder }}
+
+    - name: Run KiBOT
+      uses: INTI-CMNB/KiBot@v2_k9
+      with:
+        config: ${{ env.ConfigFilePath }}
+        dir: ${{ env.OutputFolder }}
+        schema: "${{ env.Folder }}/${{ env.BaseFileName }}.${{ env.SchematicFileExtension }}"
+        board: "${{ env.Folder }}/${{ env.BaseFileName }}.${{ env.PCBFileExtension }}"
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: kicad-export
+        path: ${{ env.OutputFolder }}
+        retention-days: 1
+
+  export-freecad:
+    env:
+      FREECADVERSION: "1.1.1"
+      FreeCADFileName: "./mechanical/housing.FCStd"
+      OutputFolder: "./output"
+      PartType: "PartDesign::Body"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fetch repository
+      uses: actions/checkout@v4
+    
+    - name: Prepare output directory
+      run: |
+        mkdir -p ${{ env.OutputFolder }}
+        cp -r ./mechanical ${{ env.OutputFolder }}
+        cp ./LICENSE ${{ env.OutputFolder }}
+
+    - name: Install FreeCAD
+      run: |
+          wget https://github.com/FreeCAD/FreeCAD/releases/download/${{ env.FREECADVERSION }}/FreeCAD_${{ env.FREECADVERSION }}-Linux-x86_64-py311.AppImage
+          chmod 0777 FreeCAD_${{ env.FREECADVERSION }}-Linux-x86_64-py311.AppImage
+          ./FreeCAD_${{ env.FREECADVERSION }}-Linux-x86_64-py311.AppImage --appimage-extract
+    - name: Get FreeCAD Export
+      run: |
+          git clone https://github.com/0x007E/pyfreecadexport.git
+    - name: Export STEP Files
+      run: |
+          ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FreeCADFileName }}" -p "${{ env.PartType }}" -d "${{ env.OutputFolder }}" -e "step" -l "squashfs-root/usr/lib/"
+          ./squashfs-root/usr/bin/python ./pyfreecadexport/src/pyfreecadexport.py -f "${{ env.FreeCADFileName }}" -p "${{ env.PartType }}" -d "${{ env.OutputFolder }}" -e "stl" -l "squashfs-root/usr/lib/"
+    
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: freecad-export
+        path: ${{ env.OutputFolder }}
+        retention-days: 1
+
+  create-release:
+    needs: [export-kicad, export-freecad]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+            Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    - name: Download KiCad Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: kicad-export
+        path: ./artifact/kicad
+    - name: Display structure
+      run: ls -R ./artifact/kicad
+    - name: Create Compressed File
+      run: |
+        cd ./artifact
+        tar -czvf ./kicad.tar.gz ./kicad
+        zip -r ./kicad.zip ./kicad
+        cd ..
+
+    - name: Upload KiCAD Schematic
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact/kicad/schematic/VLT-schematic.pdf
+        asset_name: schematic.pdf
+        asset_content_type: application/pdf
+
+    - name: Upload KiCAD PCB
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact/kicad/pcb/PCB.pdf
+        asset_name: pcb.pdf
+        asset_content_type: application/pdf
+
+    - name: Upload KiCAD TOP Render
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact/kicad/blender/top.png
+        asset_name: top.kicad.png
+        asset_content_type: image/png
+
+    - name: Upload KiCAD BOTTOM Render
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact/kicad/blender/bottom.png
+        asset_name: bottom.kicad.png
+        asset_content_type: image/png
+
+    - name: Upload KiCAD Drill PDF
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact/kicad/drill/VLT-drill_map.pdf
+        asset_name: drill.pdf
+        asset_content_type: application/pdf
+    
+    - name: Upload KiCAD BOM
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact/kicad/bom/VLT-bom.xlsx
+        asset_name: bom.xlsx
+        asset_content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    
+    - name: Upload KiCAD iBOM
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact/kicad/ibom/IBOM.html
+        asset_name: bom.html
+        asset_content_type: text/html
+
+    - name: Upload KiCAD Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact/kicad.tar.gz
+        asset_name: kicad.tar.gz
+        asset_content_type: application/gzip
+
+    - name: Upload KiCAD Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact/kicad.zip
+        asset_name: kicad.zip
+        asset_content_type: application/zip
+
+    - name: Download FreeCAD Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: freecad-export
+        path: ./artifact/freecad
+    - name: Display structure
+      run: ls -R ./artifact/freecad
+    - name: Create Compressed File
+      run: |
+        cp -r ./artifact/kicad/step ./artifact/freecad/pcb
+        cd ./artifact
+        tar -czvf ./freecad.tar.gz ./freecad
+        zip -r ./freecad.zip ./freecad
+        cd ..
+
+    - name: Upload FreeCAD Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact/freecad.tar.gz
+        asset_name: freecad.tar.gz
+        asset_content_type: application/gzip
+    
+    - name: Upload FreeCAD Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact/freecad.zip
+        asset_name: freecad.zip
+        asset_content_type: application/zip
+        
