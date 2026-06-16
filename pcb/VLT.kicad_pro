@@ -662,14 +662,8 @@
         },
         {
           "group_by": false,
-          "label": "Vendor",
-          "name": "Vendor",
-          "show": true
-        },
-        {
-          "group_by": false,
-          "label": "VendorId",
-          "name": "VendorId",
+          "label": "HTL",
+          "name": "HTL",
           "show": true
         },
         {
@@ -696,7 +690,7 @@
       "include_excluded_from_bom": true,
       "name": "",
       "sort_asc": true,
-      "sort_field": "Reference"
+      "sort_field": "HTL"
     },
     "connection_grid_size": 50.0,
     "drawing": {

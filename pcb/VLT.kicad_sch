@@ -8000,24 +8000,6 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" ""
-			(at 127 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" ""
-			(at 127 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "e3d0028d-1c46-4d85-8632-ce4c0a911022")
 		)
@@ -8086,17 +8068,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 224.79 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102980"
-			(at 224.79 123.19 0)
+		(property "HTL" "102980"
+			(at 224.79 123.19 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8239,16 +8212,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 199.39 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103615"
+		(property "HTL" "103615"
 			(at 199.39 54.61 0)
 			(effects
 				(font
@@ -8493,16 +8457,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 25.4 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103620"
+		(property "HTL" "103620"
 			(at 25.4 177.8 0)
 			(effects
 				(font
@@ -8647,17 +8602,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 182.88 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103512"
-			(at 182.88 86.36 0)
+		(property "HTL" "103512"
+			(at 182.88 86.36 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8738,16 +8684,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 50.8 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100128"
+		(property "HTL" "100128"
 			(at 50.8 177.8 0)
 			(effects
 				(font
@@ -9021,16 +8958,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 171.45 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103586"
+		(property "HTL" "103586"
 			(at 171.45 66.04 0)
 			(effects
 				(font
@@ -9114,25 +9042,16 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 172.72 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100458"
-			(at 172.72 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 172.72 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "HTL" "100458"
 			(at 172.72 88.9 0)
 			(effects
 				(font
@@ -9338,17 +9257,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 240.03 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102959"
-			(at 240.03 35.56 0)
+		(property "HTL" "102959"
+			(at 240.03 35.56 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9423,17 +9333,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 54.61 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102962"
-			(at 54.61 44.45 0)
+		(property "HTL" "102962"
+			(at 54.61 44.45 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9642,17 +9543,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 134.62 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102951"
-			(at 134.62 27.94 0)
+		(property "HTL" "102951"
+			(at 134.62 27.94 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9727,17 +9619,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 132.08 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102944"
-			(at 132.08 80.01 0)
+		(property "HTL" "102944"
+			(at 132.08 80.01 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9952,16 +9835,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 256.54 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103616"
+		(property "HTL" "103616"
 			(at 256.54 46.99 0)
 			(effects
 				(font
@@ -10123,16 +9997,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 38.1 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103620"
+		(property "HTL" "103620"
 			(at 38.1 177.8 0)
 			(effects
 				(font
@@ -10342,17 +10207,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 275.59 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102951"
-			(at 275.59 33.02 0)
+		(property "HTL" "102951"
+			(at 275.59 33.02 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10445,17 +10301,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 143.51 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100206"
-			(at 143.51 27.94 0)
+		(property "HTL" "100206"
+			(at 143.51 27.94 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10533,16 +10380,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 63.5 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100128"
+		(property "HTL" "100128"
 			(at 63.5 177.8 0)
 			(effects
 				(font
@@ -10684,16 +10522,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 196.85 119.38 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103618"
+		(property "HTL" "103618"
 			(at 196.85 119.38 0)
 			(effects
 				(font
@@ -10911,16 +10740,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 256.54 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103617"
+		(property "HTL" "103617"
 			(at 256.54 82.55 0)
 			(effects
 				(font
@@ -11084,16 +10904,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 88.9 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100128"
+		(property "HTL" "100128"
 			(at 88.9 177.8 0)
 			(effects
 				(font
@@ -11170,17 +10981,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 160.02 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102973"
-			(at 160.02 46.99 0)
+		(property "HTL" "102973"
+			(at 160.02 46.99 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11255,16 +11057,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 247.65 119.38 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103618"
+		(property "HTL" "103618"
 			(at 247.65 119.38 0)
 			(effects
 				(font
@@ -11418,17 +11211,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 73.66 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102920"
-			(at 73.66 57.15 0)
+		(property "HTL" "102920"
+			(at 73.66 57.15 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11506,17 +11290,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 44.45 121.92 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "101017, 101382"
-			(at 44.45 121.92 0)
+		(property "HTL" "101017, 101382"
+			(at 44.45 121.92 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11787,16 +11562,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 222.25 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103619"
+		(property "HTL" "103619"
 			(at 222.25 88.9 0)
 			(effects
 				(font
@@ -12015,16 +11781,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 224.79 140.97 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100138"
+		(property "HTL" "100138"
 			(at 224.79 140.97 0)
 			(effects
 				(font
@@ -12100,16 +11857,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 34.29 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103572"
+		(property "HTL" "103572"
 			(at 34.29 54.61 0)
 			(effects
 				(font
@@ -12230,17 +11978,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 140.97 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102944"
-			(at 140.97 74.93 0)
+		(property "HTL" "102944"
+			(at 140.97 74.93 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12315,17 +12054,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 73.66 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102920"
-			(at 73.66 54.61 0)
+		(property "HTL" "102920"
+			(at 73.66 54.61 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12400,17 +12130,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 219.71 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102980"
-			(at 219.71 123.19 0)
+		(property "HTL" "102980"
+			(at 219.71 123.19 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12619,17 +12340,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 139.7 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103604"
-			(at 139.7 38.1 0)
+		(property "HTL" "103604"
+			(at 139.7 38.1 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12909,16 +12621,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 80.01 71.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100138"
+		(property "HTL" "100138"
 			(at 80.01 71.12 0)
 			(effects
 				(font
@@ -12995,17 +12698,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 73.66 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102993"
-			(at 73.66 64.77 0)
+		(property "HTL" "102993"
+			(at 73.66 64.77 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13080,17 +12774,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 243.84 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102959"
-			(at 243.84 35.56 0)
+		(property "HTL" "102959"
+			(at 243.84 35.56 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13238,16 +12923,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 219.71 140.97 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100134"
+		(property "HTL" "100134"
 			(at 219.71 140.97 0)
 			(effects
 				(font
@@ -13323,17 +12999,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 156.21 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102944"
-			(at 156.21 30.48 0)
+		(property "HTL" "102944"
+			(at 156.21 30.48 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13477,17 +13144,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 52.07 34.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103570"
-			(at 52.07 34.29 0)
+		(property "HTL" "103570"
+			(at 52.07 34.29 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13760,17 +13418,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 54.61 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102962"
-			(at 54.61 46.99 0)
+		(property "HTL" "102962"
+			(at 54.61 46.99 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13848,16 +13497,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 76.2 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100128"
+		(property "HTL" "100128"
 			(at 76.2 177.8 0)
 			(effects
 				(font
@@ -13936,16 +13576,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 80.01 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100128"
+		(property "HTL" "100128"
 			(at 80.01 46.99 0)
 			(effects
 				(font
@@ -14023,16 +13654,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 105.41 64.77 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103271"
+		(property "HTL" "103271"
 			(at 105.41 64.77 0)
 			(effects
 				(font
@@ -14182,24 +13804,6 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" ""
-			(at 114.3 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" ""
-			(at 114.3 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(pin "1"
 			(uuid "ac4f6db3-5bfd-48a4-bc04-000e813d0205")
 		)
@@ -14335,17 +13939,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 139.7 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100194"
-			(at 139.7 177.8 0)
+		(property "HTL" "100194"
+			(at 139.7 177.8 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14487,24 +14082,6 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" ""
-			(at 31.75 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" ""
-			(at 31.75 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(instances
 			(project "VLT"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -14631,17 +14208,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 160.02 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102973"
-			(at 160.02 49.53 0)
+		(property "HTL" "102973"
+			(at 160.02 49.53 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14711,24 +14279,6 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 101.6 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Vendor" ""
-			(at 101.6 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" ""
 			(at 101.6 177.8 0)
 			(effects
 				(font
@@ -14871,17 +14421,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 163.83 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102940"
-			(at 163.83 88.9 0)
+		(property "HTL" "102940"
+			(at 163.83 88.9 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15024,25 +14565,16 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 140.97 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100459"
-			(at 140.97 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 140.97 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "HTL" "100459"
 			(at 140.97 80.01 0)
 			(effects
 				(font
@@ -15186,25 +14718,16 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 132.08 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "100458"
-			(at 132.08 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(property "Sim.Pins" "1=K 2=A"
+			(at 132.08 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "HTL" "100458"
 			(at 132.08 74.93 0)
 			(effects
 				(font
@@ -15280,17 +14803,8 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 233.68 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "102967"
-			(at 233.68 35.56 0)
+		(property "HTL" "102967"
+			(at 233.68 35.56 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15366,16 +14880,7 @@
 				(hide yes)
 			)
 		)
-		(property "Vendor" "HTL"
-			(at 177.8 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "VendorId" "103586"
+		(property "HTL" "103586"
 			(at 177.8 66.04 0)
 			(effects
 				(font
