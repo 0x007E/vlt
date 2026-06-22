@@ -168,10 +168,10 @@ jobs:
       
       - name: Create Compressed File
         run: |
-          cd ./artifact/freecad
-          tar -czvf ../freecad.tar.gz ./mechanical
-          zip -r ../freecad.zip ./mechanical
-          cd ..
+          cp -r ./artifact/kicad/step ./artifact/freecad/pcb
+          cd ./artifact
+          tar -czvf ./freecad.tar.gz ./freecad
+          zip -r ./freecad.zip ./freecad
           cd ..
 
       - name: Upload FreeCAD Mechanical Files
