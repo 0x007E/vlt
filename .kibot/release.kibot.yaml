@@ -45,6 +45,7 @@ outputs:
       columns:
         - Row
         - References
+        - Value
         - Footprint
         - field: HTL
           name: HTL
